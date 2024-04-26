@@ -1,4 +1,5 @@
 import MainInput from "@/components/main-input";
+import { Toaster } from 'sonner'
 
 export default function Home() {
 
@@ -9,6 +10,7 @@ export default function Home() {
         <MainInput />
         <a href="#" className="text-xl hover:underline">Your short URL here</a>
       </section>
+      <Toaster position="bottom-center" />
     </main>
   );
 }
