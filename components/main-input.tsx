@@ -1,24 +1,21 @@
-"use client"
+'use client'
 
-import { useForm } from "react-hook-form"
-import { Button } from "./ui/button"
-import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form"
-import { Input } from "./ui/input"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { toast } from "sonner"
-import { useState } from "react"
-import { Link } from "@/types/link.type"
-
-
-const formSchema = z.object({
-  url: z.string().url({ message: 'Invalid url' })
-})
+import { useForm } from 'react-hook-form'
+import { Button } from './ui/button'
+import { Form, FormControl, FormField, FormItem, FormMessage } from './ui/form'
+import { Input } from './ui/input'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { toast } from 'sonner'
+import { useState } from 'react'
+import { Link as Url } from '@/types/link.type'
+import Link from 'next/link'
+import { formSchema } from '@/server/schemas'
+import { createUrl } from '@/server/data/links'
 
 export default function MainInput() {
-  const [newLink, setNewLink] = useState<Link>()
+  const [newLink, setNewLink] = useState<Url>()
   const [loading, setLoading] = useState(false)
-
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -30,21 +27,14 @@ export default function MainInput() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true)
-      const res = await fetch('http://localhost:3000/api', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(values)
-      })
-      const data: Link = await res.json()
+      const data = await createUrl(values)
       setNewLink(data)
-      console.log(data)
       toast.success('Link created successfully!',{
-        description: `https:/slug.vercel.app/${data.slug}`,
-        duration: 5000,
+        description: `https://slug.vercel.app/${data.slug}`,
+        duration: 10000,
         closeButton: true
       })
+      form.reset()
     } catch (error) {
       toast.error('An unexpected error has ocurred. Please try again later.')
     } finally {
@@ -74,7 +64,7 @@ export default function MainInput() {
       {
         loading ? 
         <span>Loading created link...</span> :
-        <a
+        <Link
           href={`${newLink?.url}`}
           className="text-xl hover:underline"
           rel="noreferrer"
@@ -83,7 +73,7 @@ export default function MainInput() {
           {
             newLink?.slug
           }
-        </a>
+        </Link>
       }
   </>
   )
