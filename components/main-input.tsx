@@ -11,7 +11,7 @@ import { useState } from 'react'
 import { Link as Url } from '@/types/link.type'
 import Link from 'next/link'
 import { formSchema } from '@/server/schemas'
-import { createUrl } from '@/server/data/links'
+import { createUrl, getSlug } from '@/server/data/links'
 
 export default function MainInput() {
   const [newLink, setNewLink] = useState<Url>()
@@ -23,12 +23,15 @@ export default function MainInput() {
       url: ""
     },
   }) 
-     
+
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true)
       const data = await createUrl(values)
       setNewLink(data)
+      const dataLink = await getSlug(data.slug)
+      console.log(dataLink?.slug)
       toast.success('Link created successfully!',{
         description: `https://slug.vercel.app/${data.slug}`,
         duration: 10000,
@@ -65,7 +68,7 @@ export default function MainInput() {
         loading ? 
         <span>Loading created link...</span> :
         <Link
-          href={`${newLink?.url}`}
+          href={`/${newLink?.slug}`}
           className="text-xl hover:underline"
           rel="noreferrer"
           target="_blank"
