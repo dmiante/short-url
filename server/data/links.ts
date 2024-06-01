@@ -19,7 +19,7 @@ export async function createUrl(values: z.infer<typeof formSchema>): Promise<Lin
 
 export async function getSlug(slug: string) {
   try {
-    const linkSlug = await db.link.findFirst({
+    const linkSlug = await db.link.findUnique({
       where: {
         slug: slug
       }

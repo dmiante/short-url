@@ -66,7 +66,8 @@ export default function MainInput() {
       </Form>
       {
         loading ? 
-        <span>Loading created link...</span> :
+        <span>Loading created link...</span>
+        :
         <Link
           href={`/${newLink?.slug}`}
           className="text-xl hover:underline"
