@@ -19,9 +19,9 @@ export async function createUrl(
   return savedUrl
 }
 
-export async function getSlug(slug: string) {
+export async function getSlug(slug: string): Promise<Link[]> {
   try {
-    const linkSlug = await db.link.findUnique({
+    const linkSlug = await db.link.findMany({
       where: {
         slug: slug
       }
