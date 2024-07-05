@@ -15,9 +15,9 @@ import { Link as Url } from '@prisma/client'
 import Link from 'next/link'
 
 import { formSchema } from '@/server/schemas'
-import { createUrl, getSlug } from '@/server/data/links'
+import { createUrl } from '@/server/data/links'
 
-export default function MainInput() {
+export default function MainForm() {
   const [newLink, setNewLink] = useState<Url>()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -31,21 +31,18 @@ export default function MainInput() {
     control,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting }
+    formState: { isSubmitting }
   } = form
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const data = await createUrl(values)
       setNewLink(data)
-      const dataLink = await getSlug(data.slug)
-      console.log(dataLink?.slug)
-      console.log(form)
       toast.success('Link created successfully!', {
         duration: 10000
       })
     } catch (error) {
-      console.error(errors)
+      console.error(error)
       toast.error('An unexpected error has ocurred. Please try again later.')
     } finally {
       reset()

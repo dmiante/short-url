@@ -9,9 +9,9 @@ export default async function SlugPage({
   const { slug } = params
 
   const slugUrl = await getSlug(slug)
-  if (!slugUrl) {
+  if (!slugUrl || slugUrl.length === 0) {
     notFound()
   }
 
-  return permanentRedirect(slugUrl.url)
+  return permanentRedirect(slugUrl[0].url)
 }
