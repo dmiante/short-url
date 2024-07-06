@@ -11,5 +11,5 @@
   "rules":{
     "prettier/prettier": "error"
   },
-  "exclude": ["/components/ui/*.tsx"]
+  "ignorePatterns": ["/components/ui/*.tsx"]
 }
