@@ -5,7 +5,7 @@ export default function Hero() {
         Short<span className='font-bold'>URL</span>
       </h1>
       <div className='flex flex-col items-center'>
-        <h3>Shorten your URLs with ease.</h3>
+        <h3>Shorten your URLs easy and fast.</h3>
         <span>These will be available for 5 minutes.</span>
       </div>
     </div>
