@@ -10,5 +10,6 @@
   ],
   "rules":{
     "prettier/prettier": "error"
-  }
+  },
+  "exclude": ["/components/ui/*.tsx"]
 }
