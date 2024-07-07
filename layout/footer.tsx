@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <footer className='flex flex-col items-center leading-4 text-muted-foreground'>
+    <footer className='mx-auto flex w-full justify-center p-4 text-lg text-muted-foreground'>
       <p>
         Built by{' '}
         <Link
