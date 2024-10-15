@@ -18,7 +18,7 @@ export default function Header() {
             rel='noreferrer'
             target='_blank'
           >
-            <Github size={36} />
+            <Github size={32} />
           </Link>
         </div>
       </nav>

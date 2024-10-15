@@ -23,7 +23,7 @@ export async function getSlug(slug: string): Promise<Link[]> {
   try {
     const linkSlug = await db.link.findMany({
       where: {
-        slug: slug
+        slug
       }
     })
     return linkSlug
